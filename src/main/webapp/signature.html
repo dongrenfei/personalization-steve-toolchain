@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="http://v3.bootcss.com/favicon.ico">
+<title>Signature Generate</title>
+<link href="index_files/bootstrap.css" rel="stylesheet">
+
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<script src="index_files/ie-emulation-modes-warning.js"></script>
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<!--bella added-->
+
+<script src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/download/html2canvas.js"></script>
+<script type="text/javascript">
+$(function(){
+  $("#generate").click(function(){
+	  var inputuser= $("#input-user").val();
+	  console.log(inputuser);
+	  var json_u="http://faces.tap.ibm.com/api/find/?threshold=5&format=faces&limit=22&q="+inputuser;
+    $.getJSON(json_u,function(data){
+		console.log(data);
+		
+      //var $jsontip = $("#jsonTip");
+	  var wishes="Regards,";
+	  var name= data.persons[0].person.name;
+	  var title= data.persons[0].person.bio;
+	  var orgtitle= data.persons[0].person["org-title"];
+	  var phone= data.persons[0].person["office-phone"];
+    var mbphone= data.persons[0].person["mobile-phone"];
+	  var mail= data.persons[0].person.email;
+	  var address= data.persons[0].person.building +", No.28 Hong Chuan East Road, Hi-Tech Zone District";
+	  var location=data.persons[0].person.location;
+     //update for form list
+      $("#wishes").val(wishes);
+	  $("#name").val(name);
+	  $("#title").val(title);
+	  $("#orgtitle").val(orgtitle);
+	  $("#phone").val(phone);
+      $("#mbphone").val(mbphone);
+	  $("#mail").val(mail);
+	  $("#address").val(address);
+	  $("#location").val(location);
+	  //update for signature
+	   $(".wishes").html(wishes);
+	   $(".name").html(name);
+	   $(".title").html(title);
+	   $(".orgtitle").html(orgtitle);
+	   $(".phone").html(phone);
+       $(".mbphone").html(mbphone);
+	   $(".mail").html(mail);
+	   $('.mail').attr('href','mailto:'+mail); 
+	   $(".address").html(address);
+	   $(".location").html(location);
+     //set default value is null
+	  $(".part1").html("");
+	   $(".part2").html("");
+	   
+    })
+  })
+  
+  $("#download-html").click(function(){
+  var record1 = $('#signature').html();
+  var record="<html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8' /></head><body>"+record1+"</body></html>";
+  
+  
+  var blob = new Blob([record], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, "signature.html");
+  })
+  
+ 
+$("#wishes").keyup(function() {
+   $(".wishes").html($(this).val());
+})
+$("#name").keyup(function() {
+   $(".name").html($(this).val());
+})
+$("#title").keyup(function() {
+   $(".title").html($(this).val());
+})
+$("#orgtitle").keyup(function() {
+   $(".orgtitle").html($(this).val());
+})
+$("#phone").keyup(function() {
+   $(".phone").html($(this).val());
+})
+$("#mbphone").keyup(function() {
+   $(".mbphone").html($(this).val());
+})
+$("#mail").keyup(function() {
+   $(".mail").html($(this).val());
+   $('.mail').attr('href','mailto:'+$(this).val());
+})
+$("#address").keyup(function() {
+   $(".address").html($(this).val());
+})
+$("#location").keyup(function() {
+   $(".location").html($(this).val());
+})
+$("#part1").keyup(function() {
+   $(".part1").html($(this).val());
+})
+$("#part2").keyup(function() {
+   $(".part2").html($(this).val());
+})
+
+
+ $("#download-img").on("click", function () {  
+
+
+                html2canvas($("#signature"), {
+                   height: $("#signature").outerHeight() + 20,
+				   width: $("#signature").outerWidth()+20,
+                    onrendered: function (canvas) {
+                        var url = canvas.toDataURL();
+						//$("#img-text").val(url);
+						//console.log(url);
+                        //以下代码为下载此图片功能
+                        var triggerDownload = $("<a>").attr("href", url).attr("download", "signature.jpg").appendTo("body");
+						//console.log(triggerDownload);
+                        triggerDownload[0].click();
+                        triggerDownload.remove();
+						//console.log(url);
+                      }
+                });
+	
+            });
+			
+})
+</script>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      <a class="navbar-brand" href="#">Signature Generate</a> </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <form class="navbar-form navbar-center" role="form">
+        <div class="form-group">
+          <input placeholder="Name/Notes/IntranetID" class="form-control" type="text" id="input-user">
+        </div>
+        <button type="button" class="btn btn-success" id="generate">Load from Blue pages</button>
+      </form>
+    </div>
+    <!--/.navbar-collapse --> 
+  </div>
+</nav>
+<div id="jsonTip"> </div>
+<!-- content -->
+<div class="jumbotron" style="height:350px;">
+  <div class="container">
+    <div id="signature" style="position:absolute;height:305px;width:650px" contenteditable="true">
+      <div class="aa"><br />
+        <br />
+        <p style="font-size:12px; color:#000000;font-weight: bold;" class="wishes">Regards,</p>
+        <table border="0" width="650" cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr>
+              <td><span style="color: #666666;font-size: 12px;font-weight: bold;" class="name">LI BAI</span><br />
+                <span style="color:#999999;font-size: 10px;" class="title">Application developer</span><br />
+                <span style="color:#999999;font-size: 10px" class="orgtitle">IBM Digital Business Group</span></td>
+              <td valign="bottom"><img style="float:right;" src="dbg-logo.jpg" alt="IBM Digital Business Group"></td>
+            </tr>
+          </tbody>
+        </table>
+        <table cellpadding="0" cellspacing="0" width="650px" border="0" style="color:#5f5f5f;font-size:7pt">
+          <tbody>
+            <tr>
+              <td colspan="3"><hr style="border:0;color:#696969;background-color:#696969;height:1px;" /></td>
+            </tr>
+            <tr>
+              <td width="450px" style="vertical-align: top;"><span style="color:#466BB0;font-weight:bold;">Phone: </span> <span class="phone">86-000-0000- 0000</span> <span style="color:#466BB0;font-weight:bold;" class="mbphone-title"> | Mobile: </span> <span class="mbphone">86-000-0000- 0000</span><br />
+                <span style="color:#466BB0;font-weight:bold;">E-mail: </span> <a class="mail" href="mailto:bailibl@cn.ibm.com" target="_blank"><span style="color:#5f5f5f;" class="mail">bailibl@cn.ibm.com</span></a><br /></td>
+              <td  align="right" width="auto" style="vertical-align: top;"><span class="address">33 Hong Chuan East Road, Gao Xin Zo</span><br />
+                <span class="location">Dalian, 21, China</span></td>
+            </tr>
+            <tr style="font-size:8pt;color:#00f;font-style:italic">
+              <td><span class="part1" >"Big Data & Analytics : Logic of successful business"</span></td>
+              <td align="right"><span class="part2">PMP certified</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container"> 
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="col-md-4">
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label for="wishes" class="col-sm-2 control-label">Wishes</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="wishes" placeholder="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="name" class="col-sm-2 control-label">Name</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="name" placeholder="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="title" class="col-sm-2 control-label">Job title</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="title" placeholder="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="orgtitle" class="col-sm-2 control-label">Org title</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="orgtitle" placeholder="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="phone" class="col-sm-2 control-label">Office Phone</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="phone" placeholder="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="mbphone" class="col-sm-2 control-label">Mobile Phone</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="mbphone" placeholder="">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-4">
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label for="mail" class="col-sm-2 control-label">Mail</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="mail" placeholder="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="address" class="col-sm-2 control-label">Address</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="address" placeholder="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="location" class="col-sm-2 control-label">Location</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="location" placeholder="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="part1" class="col-sm-2 control-label">info 1</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="part1" placeholder="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="part2" class="col-sm-2 control-label">info 2</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="part2" placeholder="">
+          </div>
+        </div>
+        <div class="form-group"> </div>
+      </form>
+    </div>
+    <div class="col-md-4">
+      <p>For Notes:
+        <button type="button" class="btn btn-success" id="download-html">Download html</button>
+        
+        <a href="dbg-logo.jpg"  download="dbg-logo.jpg" style="color:white"><button type="button" class="btn btn-success">Download DBG image</button></a>
+       
+      </p>
+      <ol>
+        <li>Download html file and DBG image, save to local C:\notes\data</li>
+        <li>Open Notes, click More-->Preferences-->signature, click "browser"  "C:\notes\data\signature.html"</li>
+         <li>select "Automatically append a signature to bottom of my outgong mail message" ,click "OK"</li>
+      </ol>
+      <p>For Verse:
+        <button type="button" class="btn btn-success" id="download-img">Download image</button>
+      </p>
+      <!--textarea id="img-text" cols="50" rows="3"></textarea-->
+      <ol>
+        <li>open verse: <a href="https://mail.notes.na.collabserv.com/verse">https://mail.notes.na.collabserv.com/verse</a>, new message to yourself</li>
+        <li>click insert image, choose signature.jpg, cick "insert". write subject then send mail. Open the sended mail,  right click the image and "copy image location"</li>
+        <li>click Mail and Calender setting, On Signature part, click insert image, parse the url. click save->done</li>
+      </ol>
+    </div>
+  </div>
+  <hr>
+  <footer>
+    <p>© Bella</p>
+  </footer>
+</div>
+<!-- /container --> 
+
+<!-- Bootstrap core JavaScript
+    ================================================== --> 
+<!-- Placed at the end of the document so the pages load faster --> 
+<script src="index_files/bootstrap.js"></script> 
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug --> 
+<script src="index_files/ie10-viewport-bug-workaround.js"></script> 
+
+<!--for download--> 
+<script type="text/javascript" charset="utf-8" src="js/download/Blob.js"></script> 
+<script type="text/javascript" charset="utf-8" src="js/download/FileSaver.js"></script>
+</body>
+</html>
