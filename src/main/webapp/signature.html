@@ -41,7 +41,7 @@ $(function(){
 	  var phone= data.persons[0].person["office-phone"];
     var mbphone= data.persons[0].person["mobile-phone"];
 	  var mail= data.persons[0].person.email;
-	  var address= data.persons[0].person.building +", No.28 Hong Chuan East Road, Hi-Tech Zone District";
+	  var address= data.persons[0].person.building ;
 	  var location=data.persons[0].person.location;
      //update for form list
       $("#wishes").val(wishes);
@@ -138,6 +138,34 @@ $("#part2").keyup(function() {
 	
             });
 			
+			
+			
+	var x=0;			
+	function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+				var text="<img src='" + e.target.result + "' alt='' width='80' height='80' style='margin:0 0 0 5px' align='right'/>";
+			    $(".img-item").append(text);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+   $("#imgInp").change(function(){
+	  if(x<7){
+        readURL(this);
+		x++;
+	  }
+	  else{
+		  alert("There have too much images, not allowed to upload for now");
+	  }
+    
+    });
+			
 })
 </script>
 </head>
@@ -161,20 +189,21 @@ $("#part2").keyup(function() {
 </nav>
 <div id="jsonTip"> </div>
 <!-- content -->
-<div class="jumbotron" style="height:350px;">
+<div class="jumbotron" style="height:360px;">
   <div class="container">
     <div id="signature" style="position:absolute;height:305px;width:650px" contenteditable="true">
-      <div class="aa"><br />
+      <div class="aa">
         <br />
         <p style="font-size:12px; color:#000000;font-weight: bold;" class="wishes">Regards,</p>
         <table border="0" width="650" cellspacing="0" cellpadding="0">
-          <tbody>
+        <tbody>
             <tr>
               <td><span style="color: #666666;font-size: 12px;font-weight: bold;" class="name">LI BAI</span><br />
-                <span style="color:#999999;font-size: 10px;" class="title">Application developer</span><br />
+                <span style="color:#999999;font-size: 10px;" class="title">Job title</span><br />
                 <span style="color:#999999;font-size: 10px" class="orgtitle">IBM Digital Business Group</span></td>
-              <td valign="bottom"><img style="float:right;" src="dbg-logo.jpg" alt="IBM Digital Business Group"></td>
+              <td valign="bottom" class="dbg"><img style="float:right;" src="dbg-logo.jpg" alt="IBM Digital Business Group"></td>
             </tr>
+			
           </tbody>
         </table>
         <table cellpadding="0" cellspacing="0" width="650px" border="0" style="color:#5f5f5f;font-size:7pt">
@@ -192,6 +221,7 @@ $("#part2").keyup(function() {
               <td><span class="part1" >"Big Data & Analytics : Logic of successful business"</span></td>
               <td align="right"><span class="part2">PMP certified</span></td>
             </tr>
+			       <tr><td class="img-item" colspan="2"></td></tr>
           </tbody>
         </table>
       </div>
@@ -270,10 +300,12 @@ $("#part2").keyup(function() {
         <div class="form-group">
           <label for="part2" class="col-sm-2 control-label">info 2</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="part2" placeholder="">
+            <input type="text" class="form-control" id="part2" placeholder=""/>
           </div>
         </div>
-        <div class="form-group"> </div>
+        <div class="form-group"> <label for="imgInp" class="btn btn-success" title="Upload your badges image here">Browse Badges...</label>
+  <input type='file' id="imgInp" style="visibility:hidden;" />
+         </div>
       </form>
     </div>
     <div class="col-md-4">
