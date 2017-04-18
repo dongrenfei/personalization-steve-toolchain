@@ -139,22 +139,48 @@ $("#part2").keyup(function() {
             });
 			
 			
-			
+		//read url	
 	var x=0;			
 	function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-            
+
             reader.onload = function (e) {
                 $('#blah').attr('src', e.target.result);
-				var text="<img src='" + e.target.result + "' alt='' width='80' height='80' style='margin:0 0 0 5px' align='right'/>";
-			    $(".img-item").append(text);
+			resizeurl(e.target.result);
             }
             
             reader.readAsDataURL(input.files[0]);
+			
         }
     }
-    
+	//resize img url
+	
+	function resizeurl(data) {
+		var canvas = document.createElement("canvas");
+var ctx = canvas.getContext("2d");
+
+canvas.width = 90; // target width
+canvas.height = 90; // target height
+
+var image = new Image();
+image.src=data;
+
+image.onload = function(e) {
+    ctx.drawImage(image, 
+        0, 0, image.width, image.height, 
+        0, 0, canvas.width, canvas.height
+    );
+    // create a new base64 encoding
+    var resampledImage = new Image();
+    resampledImage.src = canvas.toDataURL();
+	var text="<img src='" + resampledImage.src + "' alt='' style='margin:0 0 0 5px;'/>";
+			    $(".img-item").append(text);
+    //document.getElementById("resampled").appendChild(resampledImage);
+};
+	}
+	
+    //img upload
    $("#imgInp").change(function(){
 	  if(x<7){
         readURL(this);
@@ -189,39 +215,39 @@ $("#part2").keyup(function() {
 </nav>
 <div id="jsonTip"> </div>
 <!-- content -->
-<div class="jumbotron" style="height:360px;">
+<div class="jumbotron" style="height:380px;">
   <div class="container">
     <div id="signature" style="position:absolute;height:305px;width:650px" contenteditable="true">
       <div class="aa">
         <br />
-        <p style="font-size:12px; color:#000000;font-weight: bold;" class="wishes">Regards,</p>
+        <p style="font-family:verdana; font-size:12px; color:#000000;font-weight:bold" class="wishes">Regards,</p>
         <table border="0" width="650" cellspacing="0" cellpadding="0">
         <tbody>
             <tr>
-              <td><span style="color: #666666;font-size: 12px;font-weight: bold;" class="name">LI BAI</span><br />
-                <span style="color:#999999;font-size: 10px;" class="title">Job title</span><br />
-                <span style="color:#999999;font-size: 10px" class="orgtitle">IBM Digital Business Group</span></td>
-              <td valign="bottom" class="dbg"><img style="float:right;" src="dbg-logo.jpg" alt="IBM Digital Business Group"></td>
+              <td style="font-family:verdana;font-size: 12px;font-weight: bold;"><span style="color: #666666;" class="name">LI BAI</span><br />
+                <span style="color:#999999;" class="title">Job title</span><br />
+                <span style="color:#999999;" class="orgtitle">IBM Digital Business Group</span></td>
+              <td valign="bottom" class="dbg" align="right"><img src="dbg-logo.jpg" alt="IBM Digital Business Group"/></td>
             </tr>
 			
           </tbody>
         </table>
-        <table cellpadding="0" cellspacing="0" width="650px" border="0" style="color:#5f5f5f;font-size:7pt">
+        <table cellpadding="0" cellspacing="0" width="650px" border="0" style="color:#5f5f5f;font-size:11px">
           <tbody>
             <tr>
               <td colspan="3"><hr style="border:0;color:#696969;background-color:#696969;height:1px;" /></td>
             </tr>
             <tr>
-              <td width="450px" style="vertical-align: top;"><span style="color:#466BB0;font-weight:bold;">Phone: </span> <span class="phone">86-000-0000- 0000</span> <span style="color:#466BB0;font-weight:bold;" class="mbphone-title"> | Mobile: </span> <span class="mbphone">86-000-0000- 0000</span><br />
+              <td width="450px" style="vertical-align: top;font-family:verdana;"><span style="color:#466BB0;font-weight:bold;">Phone: </span> <span class="phone">86-000-0000- 0000</span> <span style="color:#466BB0;font-weight:bold;" class="mbphone-title"> | Mobile: </span> <span class="mbphone">86-000-0000- 0000</span><br />
                 <span style="color:#466BB0;font-weight:bold;">E-mail: </span> <a class="mail" href="mailto:bailibl@cn.ibm.com" target="_blank"><span style="color:#5f5f5f;" class="mail">bailibl@cn.ibm.com</span></a><br /></td>
-              <td  align="right" width="auto" style="vertical-align: top;"><span class="address">33 Hong Chuan East Road, Gao Xin Zo</span><br />
+              <td  align="right" width="auto" style="vertical-align: top;font-family:verdana;"><span class="address">33 Hong Chuan East Road, Gao Xin Zo</span><br />
                 <span class="location">Dalian, 21, China</span></td>
             </tr>
-            <tr style="font-size:8pt;color:#00f;font-style:italic">
+            <tr style="font-family:verdana;font-size:10px;color:#00f;font-style:italic">
               <td><span class="part1" >"Big Data & Analytics : Logic of successful business"</span></td>
               <td align="right"><span class="part2">PMP certified</span></td>
             </tr>
-			       <tr><td class="img-item" colspan="2"></td></tr>
+			       <tr><td align="right" class="img-item" colspan="2"></td></tr>
           </tbody>
         </table>
       </div>
@@ -305,7 +331,7 @@ $("#part2").keyup(function() {
         </div>
         <div class="form-group"> <label for="imgInp" class="btn btn-success" title="Upload your badges image here">Browse Badges...</label>
   <input type='file' id="imgInp" style="visibility:hidden;" />
-         </div>
+       <img id="blah" src="#" alt="your image" style="visibility:hidden;" /></div>
       </form>
     </div>
     <div class="col-md-4">
