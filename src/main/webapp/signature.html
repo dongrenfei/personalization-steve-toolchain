@@ -136,7 +136,7 @@ $("#part2").keyup(function() {
 			
 			
 		//read url	
-	var x=0;			
+			
 	function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -176,16 +176,20 @@ image.onload = function(e) {
 			    $(".img-item").append(text);
     //document.getElementById("resampled").appendChild(resampledImage);
 	}
-	var x= $("#signature").height();
-$(".jumbotron").css("height",x+120);
+	
 };
 	}
 	
     //img upload
-   $("#imgInp").change(function(){  
+     $("#imgInp").change(function(){  
         readURL(this);
-    
+		setTimeout(resizediv, 100);
+         
     });
+	function resizediv(){
+	  var x= $("#signature").height();
+      $(".jumbotron").css("height",x+60);
+	};
 			
 })
 </script>
