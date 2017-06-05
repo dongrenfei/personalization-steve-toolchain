@@ -26,6 +26,7 @@
 <script type="text/javascript" src="js/download/html2canvas.js"></script>
 <script type="text/javascript">
 $(function(){
+ $('[data-toggle="popover"]').popover();
   $("#generate").click(function(){
 	  var inputuser= $("#input-user").val();
 	  console.log(inputuser);
@@ -220,7 +221,7 @@ image.onload = function(e) {
 <!-- content -->
 <div class="jumbotron" style="height:300px;">
   <div class="container">
-   
+    <div class="col-md-8">
     <div id="signature" style="position:absolute;width:650px" contenteditable="true">
       <div class="aa">
         <br />
@@ -256,7 +257,21 @@ image.onload = function(e) {
         </table>
       </div>
     </div>
-   
+   </div>
+    <div class="col-md-4">
+	<br /><br />
+	 <p> 
+        <a tabindex="0" role="button" class="btn btn-primary" id="download-img" data-toggle="popover" data-trigger="focus" title="Help Text" data-placement="right" data-html="true" data-content="1.open verse: https://mail.notes.na.collabserv.com/verse, new message to yourself
+<br />2. click insert image, choose signature.jpg, cick 'insert'. write subject then send mail. Open the sended mail,  right click the image and 'copy image location'
+<br />3.click Mail and Calender setting, On Signature part, click insert image, parse the url. click save->done"><span class="glyphicon glyphicon-download"></span>Verse:Download image</a>
+      </p>
+	  <p>
+       <a tabindex="0"  role="button" class="btn btn-primary" id="download-html" data-toggle="popover" data-trigger="focus" title="Help Text" data-placement="right" data-html="true" data-content="1. Save HTML file to local C:\notes\data<br />
+2. Open Notes, click More-->Preferences-->signature, click 'browser'  your signature html files<br />
+3. select 'Automatically append a signature to bottom of my outgong mail message' ,click 'OK'"><span class="glyphicon glyphicon-download"></span>Notes:Download html</a>
+
+      </p>
+	</div>
   </div>
 </div>
 <div class="container"> 
@@ -288,7 +303,12 @@ image.onload = function(e) {
             <input type="text" class="form-control" id="orgtitle" placeholder="">
           </div>
         </div>
-        <div class="form-group">
+       
+      </form>
+    </div>
+    <div class="col-md-4">
+      <form class="form-horizontal" role="form">
+	   <div class="form-group">
           <label for="phone" class="col-sm-2 control-label">Office Phone</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="phone" placeholder="">
@@ -300,10 +320,6 @@ image.onload = function(e) {
             <input type="text" class="form-control" id="mbphone" placeholder="">
           </div>
         </div>
-      </form>
-    </div>
-    <div class="col-md-4">
-      <form class="form-horizontal" role="form">
         <div class="form-group">
           <label for="mail" class="col-sm-2 control-label">Mail</label>
           <div class="col-sm-10">
@@ -316,6 +332,11 @@ image.onload = function(e) {
             <input type="text" class="form-control" id="address" placeholder="">
           </div>
         </div>
+       
+      </form>
+    </div>
+    <div class="col-md-4">
+	 <form class="form-horizontal" role="form">
         <div class="form-group">
           <label for="location" class="col-sm-2 control-label">Location</label>
           <div class="col-sm-10">
@@ -338,26 +359,6 @@ image.onload = function(e) {
   <input type='file' id="imgInp" style="visibility:hidden;" />
        <img id="blah" src="#" alt="your image" style="visibility:hidden;" /></div>
       </form>
-    </div>
-    <div class="col-md-4">
-     <p>
-        <button type="button" class="btn btn-primary" id="download-img"><span class="glyphicon glyphicon-download"></span>Verse:Download image</button>
-      </p>
-      <!--textarea id="img-text" cols="50" rows="3"></textarea-->
-      <ol>
-        <li>open verse: <a href="https://mail.notes.na.collabserv.com/verse">https://mail.notes.na.collabserv.com/verse</a>, new message to yourself</li>
-        <li>click insert image, choose signature.jpg, cick "insert". write subject then send mail. Open the sended mail,  right click the image and "copy image location"</li>
-        <li>click Mail and Calender setting, On Signature part, click insert image, parse the url. click save->done</li>
-      </ol>
-      <p>
-       <button type="button" class="btn btn-primary" id="download-html"><span class="glyphicon glyphicon-download"></span>Notes:Download html</button>
-
-      </p>
-      <ol>
-        <li>Save HTML file to local C:\notes\data</li>
-        <li>Open Notes, click More-->Preferences-->signature, click "browser"  "C:\notes\data\signature.html"</li>
-         <li>select "Automatically append a signature to bottom of my outgong mail message" ,click "OK"</li>
-      </ol>
      
     </div>
   </div>
