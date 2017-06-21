@@ -303,11 +303,11 @@ function copy(element_id){
         </div>
       </div>
     </div>
-    <div class="col-md-4"> <br /> 
+    <div class="col-md-4"> <br /> <br />
     <h5>Option 1</h5>
-<p><a tabindex="0" role="button" class="btn btn-primary clipboard" data-toggle="popover"  title="Option 1 works for Notes and Verse" data-placement="right" data-html="true" data-content="1. open verse: <a href='https://mail.notes.na.collabserv.com/verse' target='_blank'>https://mail.notes.na.collabserv.com/verse</a><br />
+<p><button type="button" class="btn btn-primary clipboard" data-container="body" data-toggle="popover" title="Option 1 works for Notes and Verse" data-placement="right" data-html="true" data-content="1. open verse: <a href='https://mail.notes.na.collabserv.com/verse' target='_blank'>https://mail.notes.na.collabserv.com/verse</a><br />
 Click Mail and Calender setting, On Signature part->click Edite->parse(Ctrl+V)->save->done<br />
-2. Open Notes: click More-->Preferences-->signature, select 'Rich text' ->parse(Ctrl+V) on box" onclick="copy('signature')"><span class="glyphicon glyphicon-copy"></span>&nbsp;Option 1: Copy to clipboard</a></p> 
+2. Open Notes: click More-->Preferences-->signature, select 'Rich text' ->parse(Ctrl+V) on box" onclick="copy('signature')"><span class="glyphicon glyphicon-copy"></span>&nbsp;Option 1: Copy to clipboard</button></p> 
 <h5>Option 2: choose this when option 1 not work for you</h5>
 <p> <a tabindex="0" role="button" class="btn btn-primary" id="download-img" data-toggle="popover" data-trigger="focus" title="Help Text" data-placement="right" data-html="true" data-content="1.<a href='https://mail.notes.na.collabserv.com/verse' target='_blank'>https://mail.notes.na.collabserv.com/verse</a>, new message to yourself
 <br />2. click insert image, choose signature.jpg, cick 'insert'. write subject then send mail. Open the sended mail,  right click the image and 'copy image location'
@@ -402,7 +402,7 @@ Click Mail and Calender setting, On Signature part->click Edite->parse(Ctrl+V)->
           <label class="col-sm-2 control-label">Badges</label>
           <label for="imgInp" class="btn btn-success" title="Upload your badges image here" style="margin-left:15px">Browse Badges...</label>
           <input type='file' id="imgInp" style="visibility:hidden;" />
-          <img id="blah" src="#" alt="your image" style="visibility:hidden;" /></div>
+         </div>
       </form>
     </div>
   </div>
