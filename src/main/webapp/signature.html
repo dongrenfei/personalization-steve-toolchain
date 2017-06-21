@@ -35,7 +35,7 @@ $(function(){
 	$("#input-user").addClass("redborder");//add red border
 	//when input user part update, udpate redborder
 	$('#input-user').bind('input propertychange', function() {
-		$("#generate").addClass("redborder");
+		//$("#generate").addClass("redborder");
 		$("#input-user").removeClass("redborder");
 		}); 
 	
@@ -45,7 +45,7 @@ $(function(){
  //click generate button to load data from bluepages
   $("#generate").click(function(){
 	  $("#input-user").removeClass("redborder");
-	  $("#generate").removeClass("redborder");//remove red border
+	  //$("#generate").removeClass("redborder");//remove red border
 	  var inputuser= $("#input-user").val();
 	  console.log(inputuser);
 	  var json_u="http://faces.tap.ibm.com/api/find/?threshold=5&format=faces&limit=22&q="+inputuser;
@@ -87,7 +87,7 @@ $(function(){
 	   //if locaion inclue of Dalian, show total tiandi address
 	   if (location.indexOf("Dalian") >= 0) {
 		   console.log("1");
-		   $(".address").html(address+ ' 28 Hong Chuan East Road, Gao Xin Zo');
+		   $(".address").html(address+ ', 28 Hong Chuan East Road, Gao Xin Zo');
 		   $("#address").val(address+ ' 28 Hong Chuan East Road, Gao Xin Zo');
 	   }
 	   else
@@ -100,6 +100,7 @@ $(function(){
   })
   
   $("#download-html").click(function(){
+    $('.clipboard').popover('hide');//hide copy to clipboard link's help text popup
 	  //$(".popover-content").addClass("redborder"); //2 download link popup help text add red border.
   var record1 = $('#signature').html();
   var record="<html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8' /></head><body>"+record1+"</body></html>";
@@ -146,7 +147,8 @@ $("#part2").keyup(function() {
    $(".part2").html($(this).val());
 })
  $("#download-img").on("click", function () {  
- $(".popover-content").addClass("redborder"); //2 download link popup help text add red border.
+  $('.clipboard').popover('hide');//hide copy to clipboard link's help text popup
+// $(".popover-content").addClass("redborder"); //2 download link popup help text add red border.
                 html2canvas($("#signature"), {
                    height: $("#signature").outerHeight() + 20,
 				   width: $("#signature").outerWidth()+20,
@@ -213,8 +215,9 @@ image.onload = function(e) {
 	
     //img upload
      $("#imgInp").change(function(){  
+	 $('.clipboard').popover('hide');//hide copy to clipboard link's help text popup
         readURL(this);
-		setTimeout(resizediv, 100);
+		setTimeout(resizediv, 300);
          
     });
 	function resizediv(){
@@ -300,17 +303,19 @@ function copy(element_id){
         </div>
       </div>
     </div>
-    <div class="col-md-4"> <br />
-      <br />
-      <!--p> <a tabindex="0" role="button" class="btn btn-primary" id="download-img" data-toggle="popover" data-trigger="focus" title="Help Text" data-placement="right" data-html="true" data-content="1.open verse: https://mail.notes.na.collabserv.com/verse, new message to yourself
-<br />2. click insert image, choose signature.jpg, cick 'insert'. write subject then send mail. Open the sended mail,  right click the image and 'copy image location'
-<br />3.click Mail and Calender setting, On Signature part, click insert image, parse the url. click save->done"><span class="glyphicon glyphicon-download"></span>&nbsp;Verse:Download image</a> </p-->
-<p><button class="btn btn-primary" data-toggle="popover" title="Option 1 works for Notes and Verse" data-placement="right" data-html="true" data-content="1. open verse: <a href='https://mail.notes.na.collabserv.com/verse' target='_blank'>https://mail.notes.na.collabserv.com/verse</a><br />
+    <div class="col-md-4"> <br /> 
+    <h5>Option 1</h5>
+<p><a tabindex="0" role="button" class="btn btn-primary clipboard" data-toggle="popover"  title="Option 1 works for Notes and Verse" data-placement="right" data-html="true" data-content="1. open verse: <a href='https://mail.notes.na.collabserv.com/verse' target='_blank'>https://mail.notes.na.collabserv.com/verse</a><br />
 Click Mail and Calender setting, On Signature part->click Edite->parse(Ctrl+V)->save->done<br />
-2. Open Notes: click More-->Preferences-->signature, select 'Rich text' ->parse(Ctrl+V) on box" onclick="copy('signature')"><span class="glyphicon glyphicon-download"></span>&nbsp;Option 1: click here</button></p>
-      <p> <a tabindex="0"  role="button" class="btn btn-primary" id="download-html" data-toggle="popover" data-trigger="focus" title="Option 2 only work on Notes" data-placement="bottom" data-html="true" data-content="1. Save HTML file to local C:\notes\data<br />
+2. Open Notes: click More-->Preferences-->signature, select 'Rich text' ->parse(Ctrl+V) on box" onclick="copy('signature')"><span class="glyphicon glyphicon-copy"></span>&nbsp;Option 1: Copy to clipboard</a></p> 
+<h5>Option 2: choose this when option 1 not work for you</h5>
+<p> <a tabindex="0" role="button" class="btn btn-primary" id="download-img" data-toggle="popover" data-trigger="focus" title="Help Text" data-placement="right" data-html="true" data-content="1.<a href='https://mail.notes.na.collabserv.com/verse' target='_blank'>https://mail.notes.na.collabserv.com/verse</a>, new message to yourself
+<br />2. click insert image, choose signature.jpg, cick 'insert'. write subject then send mail. Open the sended mail,  right click the image and 'copy image location'
+<br />3.click Mail and Calender setting, On Signature part, click insert image, parse the url. click save->done"><span class="glyphicon glyphicon-download"></span>&nbsp;Verse: Download Image</a> </p>
+
+      <p> <a tabindex="0"  role="button" class="btn btn-primary" id="download-html" data-toggle="popover" data-trigger="focus" title="Option 2 only work on Notes" data-placement="right" data-html="true" data-content="1. Save HTML file to local C:\notes\data<br />
 2. Open Notes, click More-->Preferences-->signature, click 'browser'  your signature html files<br />
-3. select 'Automatically append a signature to bottom of my outgong mail message' ,click 'OK'"><span class="glyphicon glyphicon-download"></span>&nbsp;Option 2: click here</a> </p>
+3. select 'Automatically append a signature to bottom of my outgong mail message' ,click 'OK'"><span class="glyphicon glyphicon-download"></span>&nbsp;Notes: Download HTML</a> </p>
     </div>
   </div>
 </div>
