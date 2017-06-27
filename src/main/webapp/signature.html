@@ -30,6 +30,24 @@ border:4px solid red !important;
 <script type="text/javascript" src="js/download/html2canvas.js"></script>
 <script type="text/javascript">
 $(function(){
+	
+
+	//add badge
+$("#add_badge").click(function(){
+	var imgurl=$(".add_badge").val();
+	if(imgurl.match('^https://')){
+	 imgurl = imgurl.replace("https://","http://")
+	}
+	 
+	if(imgurl.match('^http://')){	
+	var text="<img src='" + imgurl + "' alt='badge' style='margin:0 0 5px 5px;' width='125' height='125'/>";
+			    $(".img-item").append(text);	
+				resizediv();
+	}
+	
+});
+
+//
 	$(":input").val("");
 	$("#input-user").focus();//defalut focus on header input part
 	$("#input-user").addClass("redborder");//add red border
@@ -40,7 +58,7 @@ $(function(){
 		}); 
 	
 //popover on link download img and download html
- $('[data-toggle="popover"]').popover();
+// $('[data-toggle="popover"]').popover();
  
  //click generate button to load data from bluepages
   $("#generate").click(function(){
@@ -100,7 +118,7 @@ $(function(){
   })
   
   $("#download-html").click(function(){
-    $('.clipboard').popover('hide');//hide copy to clipboard link's help text popup
+   //$('.clipboard').popover('hide');//hide copy to clipboard link's help text popup
 	  //$(".popover-content").addClass("redborder"); //2 download link popup help text add red border.
   var record1 = $('#signature').html();
   var record="<html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8' /></head><body>"+record1+"</body></html>";
@@ -147,7 +165,7 @@ $("#part2").keyup(function() {
    $(".part2").html($(this).val());
 })
  $("#download-img").on("click", function () {  
-  $('.clipboard').popover('hide');//hide copy to clipboard link's help text popup
+  //$('.clipboard').popover('hide');//hide copy to clipboard link's help text popup
 // $(".popover-content").addClass("redborder"); //2 download link popup help text add red border.
                 html2canvas($("#signature"), {
                    height: $("#signature").outerHeight() + 20,
@@ -215,7 +233,7 @@ image.onload = function(e) {
 	
     //img upload
      $("#imgInp").change(function(){  
-	 $('.clipboard').popover('hide');//hide copy to clipboard link's help text popup
+	 //$('.clipboard').popover('hide');//hide copy to clipboard link's help text popup
         readURL(this);
 		setTimeout(resizediv, 300);
          
@@ -227,6 +245,7 @@ image.onload = function(e) {
 			
 });
 //copy signature text Keeping Format
+
 function copy(element_id){
   var aux = document.createElement("div");
   aux.setAttribute("contentEditable", true);
@@ -236,7 +255,8 @@ function copy(element_id){
   aux.focus();
   document.execCommand("copy");
   document.body.removeChild(aux);
-}
+};
+
 </script>
  
 </head>
@@ -265,9 +285,9 @@ function copy(element_id){
     <div class="col-md-8">
       <div id="signature" style="position:absolute;width:650px" contenteditable="true">
         <div class="aa"> <br />
-          <p style="font-family: verdana, Arial, Helvetica, sans-serif; font-size:12px; color:#000000;font-weight: bold" class="wishes">Regards,</p>
           <table border="0" width="650" cellspacing="0" cellpadding="0">
             <tbody>
+            <tr><td> <span style="font-family: verdana; font-size:12px; color:#000000;font-weight: bold" class="wishes">Regards,</span></td></tr>
               <tr>
                 <td style="font-family:verdana;font-size: 12px;font-weight: bold;"><span style="color: #666666;" class="name">LI BAI</span><br />
                   <span style="color:#999999;" class="title">Application Developer</span><br />
@@ -276,14 +296,14 @@ function copy(element_id){
               </tr>
             </tbody>
           </table>
-          <table cellpadding="0" cellspacing="0" width="650px" border="0" style="color:#5f5f5f;font-size:11px">
+        <table cellpadding="0" cellspacing="0" width="650px" border="0" style="font-family: verdana;color:#5f5f5f;font-size:11px;">
             <tbody>
               <tr>
                 <td colspan="3"><hr style="border:0;color:#696969;background-color:#696969;height:1px;" /></td>
               </tr>
               <tr>
                 <td colspan="2"><span style="color:#466BB0;font-weight:bold;">Phone: </span><span class="phone">86-000-0000- 0000</span><span style="color:#466BB0;font-weight:bold;" class="mbphone-title"> / </span><span class="mbphone">86-000-0000- 0000</span></td>
-                <td rowspan="3" align="right"><img alt="IBM" src="data:image/gif;base64,R0lGODlhUwAeALMAAP///wCKvwCz7wA+abLc7H/E33/Z90yt0kzK9LLo+gAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAABTAB4AAAT/cMhJKwAi680zMlcIBGRpkmJ6rkEaVjB1dXRnJCJ7Ei5A6KaecEgsGo/IpHLJbKZi0FltugGNgCWe6IdF9aAxKXV86ZIKqYK55Wy73/C4XBkedlyGuwqIvqiBdDBEeiJ5GwguXSGKc42Oj5CRInVCYzY9XQcAB4xIlD2WVUIrfyWlZyuSqqusrV+CdqEZVok7Vyw+qUmfLrIatDm2gFxBrsbHyG+8KYQhhhqIeyZapwF9xCWBFrEbeM1ltuDZF9heyefo6RdgsL414ixaAKV9uYCv7BNi7r/wK/K3tmARUeAAQHWOCBRQWA9howMFCRzIJwMDPwE3gukAqKZhuRMhFQosFElRn0VfH2ptVJHiYzE/EAFEAAA7"></td>
+                <td rowspan="3" colspan="1" align="right"><img alt="IBM" src="data:image/gif;base64,R0lGODlhUwAeALMAAP///wCKvwCz7wA+abLc7H/E33/Z90yt0kzK9LLo+gAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAABTAB4AAAT/cMhJKwAi680zMlcIBGRpkmJ6rkEaVjB1dXRnJCJ7Ei5A6KaecEgsGo/IpHLJbKZi0FltugGNgCWe6IdF9aAxKXV86ZIKqYK55Wy73/C4XBkedlyGuwqIvqiBdDBEeiJ5GwguXSGKc42Oj5CRInVCYzY9XQcAB4xIlD2WVUIrfyWlZyuSqqusrV+CdqEZVok7Vyw+qUmfLrIatDm2gFxBrsbHyG+8KYQhhhqIeyZapwF9xCWBFrEbeM1ltuDZF9heyefo6RdgsL414ixaAKV9uYCv7BNi7r/wK/K3tmARUeAAQHWOCBRQWA9howMFCRzIJwMDPwE3gukAqKZhuRMhFQosFElRn0VfH2ptVJHiYzE/EAFEAAA7"></td>
               </tr>
               <tr>
                 <td colspan="3"><span style="color:#466BB0;font-weight:bold;">E-mail: </span><a class="mail" href="mailto:bailibl@cn.ibm.com" target="_blank"><span style="color:#5f5f5f;" class="mail">bailibl@cn.ibm.com</span></a></td>
@@ -296,26 +316,20 @@ function copy(element_id){
                 <td align="right"><span class="part2">PMP certified</span></td>
               </tr>
               <tr>
-                <td align="right" class="img-item" colspan="3" ></td>
+                <td align="right" class="img-item" colspan="3" style="width:650px;"></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
-    <div class="col-md-4"> <br /> <br />
-    <h5>Option 1</h5>
-<p><button type="button" class="btn btn-primary clipboard" data-container="body" data-toggle="popover" title="Option 1 works for Notes and Verse" data-placement="right" data-html="true" data-content="1. open verse: <a href='https://mail.notes.na.collabserv.com/verse' target='_blank'>https://mail.notes.na.collabserv.com/verse</a><br />
-Click Mail and Calender setting, On Signature part->click Edite->parse(Ctrl+V)->save->done<br />
-2. Open Notes: click More-->Preferences-->signature, select 'Rich text' ->parse(Ctrl+V) on box" onclick="copy('signature')"><span class="glyphicon glyphicon-copy"></span>&nbsp;Option 1: Copy to clipboard</button></p> 
-<h5>Option 2: choose this when option 1 not work for you</h5>
-<p> <a tabindex="0" role="button" class="btn btn-primary" id="download-img" data-toggle="popover" data-trigger="focus" title="Help Text" data-placement="right" data-html="true" data-content="1.<a href='https://mail.notes.na.collabserv.com/verse' target='_blank'>https://mail.notes.na.collabserv.com/verse</a>, new message to yourself
-<br />2. click insert image, choose signature.jpg, cick 'insert'. write subject then send mail. Open the sended mail,  right click the image and 'copy image location'
-<br />3.click Mail and Calender setting, On Signature part, click insert image, parse the url. click save->done"><span class="glyphicon glyphicon-download"></span>&nbsp;Verse: Download Image</a> </p>
+    <div class="col-md-4"> <br /> 
+   
+<p><button type="button" class="btn btn-primary" onclick="copy('signature')"><span class="glyphicon glyphicon-copy"></span>&nbsp;Click here: Copy to clipboard</button></p> 
+<h5>1. open <strong>verse</strong>: <a href="https://mail.notes.na.collabserv.com/verse" target="_blank">https://mail.notes.na.collabserv.com/verse</a><br />
+Click Mail and Calender setting, On Signature part--->click Edite->parse(<strong>Ctrl+V</strong>)->save->done<br /><br />
+2. Open <strong>Notes</strong>: click More-->Preferences-->signature, select 'Rich text' ->parse(Ctrl+V) on box</h5>
 
-      <p> <a tabindex="0"  role="button" class="btn btn-primary" id="download-html" data-toggle="popover" data-trigger="focus" title="Option 2 only work on Notes" data-placement="right" data-html="true" data-content="1. Save HTML file to local C:\notes\data<br />
-2. Open Notes, click More-->Preferences-->signature, click 'browser'  your signature html files<br />
-3. select 'Automatically append a signature to bottom of my outgong mail message' ,click 'OK'"><span class="glyphicon glyphicon-download"></span>&nbsp;Notes: Download HTML</a> </p>
     </div>
   </div>
 </div>
@@ -398,11 +412,15 @@ Click Mail and Calender setting, On Signature part->click Edite->parse(Ctrl+V)->
             <input type="text" class="form-control" id="part2" placeholder=""/>
           </div>
         </div>
-        <div class="form-group">
+       <div class="input-group">
+           <input type="text" class="form-control add_badge" placeholder="" aria-describedby="add_badge">
+           <span class="input-group-addon btn btn-success" id="add_badge">Add badge image url</span>
+         </div>
+        <!--<div class="form-group">
           <label class="col-sm-2 control-label">Badges</label>
           <label for="imgInp" class="btn btn-success" title="Upload your badges image here" style="margin-left:15px">Browse Badges...</label>
           <input type='file' id="imgInp" style="visibility:hidden;" />
-         </div>
+         </div>-->
       </form>
     </div>
   </div>
